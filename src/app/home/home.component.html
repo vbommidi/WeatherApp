@@ -1,0 +1,55 @@
+<div class="panel panel-default searchBar">
+    <div class="panel-heading" style="text-align: center">Enter a Zip Code to find out the Weather forcast of the city </div>
+    <div class="panel-body">
+      <form novalidate #zipCodeForm="ngForm" (ngSubmit)="checkZipCode()">
+      <div class="col-md-12" style="margin-bottom: 10px;">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search by Zip Code" #zipRef="ngModel" pattern="^[1-9][0-9]{4}$" name="zipCode"   required [(ngModel)]="zipCode" style="font-size: 14px;padding: 20px 15px;" >
+          <div class="input-group-btn">
+            <button class="btn btn-primary" [disabled]="!zipCodeForm.form.valid"  type="submit" style="font-size: 14px; padding:10px 15px;">Search</button>
+          </div>
+        </div>
+        <div *ngIf="zipRef.errors && (zipRef.dirty || zipRef.touched)" class="alert alert-danger">
+          <div [hidden]="!zipRef.errors.required">
+
+              Zip Code is Required field.
+          </div>
+          <div [hidden]="!zipRef.errors.pattern">
+            Please enter a valid zipcode with 5 characters [ex: 98001,95055,33620 ..]
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+   <div class="alert alert-danger alert-dismissible fade in searchBar" *ngIf="isError">
+     <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+     <strong> CITY NOT FOUND! </strong>
+   </div>
+
+ <mat-card *ngIf="weatherReportAvaiale">
+
+   <mat-grid-list cols="2" rowHeight="3:2">
+     <mat-grid-tile><h1 style="font-size: 45px; text-align: center">{{weather?.name}}</h1></mat-grid-tile>
+     <mat-grid-tile>
+       <mat-list role="list">
+         <mat-list-item role="listitem">Max: &nbsp;<strong>{{weather?.main.temp_max-273 | number:'1.0-0'   }}°C</strong> </mat-list-item>
+         <mat-list-item role="listitem">Min: &nbsp;<strong> {{weather?.main.temp_min-273 | number:'1.0-0' }}°C</strong></mat-list-item>
+         <mat-list-item role="listitem">Humidity: &nbsp;<strong>{{weather?.main.humidity}}%</strong></mat-list-item>
+         <mat-list-item role="listitem">Pressure: &nbsp;<strong>{{weather?.main.pressure}}hPA</strong></mat-list-item>
+       </mat-list>
+     </mat-grid-tile>
+     <mat-grid-tile><h1 style="font-size: 65px;">{{weather?.main.temp-273 | number:'1.0-0'}}°C </h1></mat-grid-tile>
+     <mat-grid-tile>
+       <mat-list role="list">
+         <mat-list-item role="listitem"> <strong>{{ weather?.weather[0].main }}</strong></mat-list-item>
+         <mat-list-item role="listitem">Description:&nbsp; <strong>{{ weather?.weather[0].description }}</strong></mat-list-item>
+       </mat-list>
+     </mat-grid-tile>
+   </mat-grid-list>
+
+
+
+
+ </mat-card>
+

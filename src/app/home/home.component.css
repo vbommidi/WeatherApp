@@ -1,0 +1,10 @@
+mat-card {
+  border: 1px solid #C2CCD1;
+  width:40%; margin: 0 auto;
+  margin-top: 20px;
+}
+.searchBar {
+  width:40%;
+  margin: 0 auto;
+  margin-top: 20px;
+}
